@@ -69,7 +69,7 @@ services:
   chromadb:
     image: chromadb/chroma:latest
     ports:
-      - "8000:8000"
+      - "8001:8000"
     environment:
       - CHROMA_DB_PATH=/data
       - CHROMA_SECRET_KEY=${SERVICE_REALBASE64_64_CHROMA} # Unique secret for Chroma
