@@ -21,7 +21,7 @@ services:
       - NEXTAUTH_URL=https://${SERVICE_FQDN_APP}
 
       # Backend
-      - LEARNHOUSE_COOKIE_DOMAIN=${SERVICE_FQDN_APP} # Dynamic FQDN for cookies
+      - LEARNHOUSE_COOKIE_DOMAIN=.${SERVICE_FQDN_APP} # Dynamic FQDN for cookies
       - LEARNHOUSE_SQL_CONNECTION_STRING=postgresql://learnhouse:${SERVICE_PASSWORD_DB}@db:5432/learnhouse 
       - LEARNHOUSE_REDIS_CONNECTION_STRING=redis://:${SERVICE_PASSWORD_REDIS}@redis:6379/learnhouse 
       - LEARNHOUSE_CHROMADB_HOST=${SERVICE_FQDN_CHROMADB} 
