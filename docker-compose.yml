@@ -7,26 +7,32 @@ services:
       - "80:80"
     volumes:
       - .:/usr/learnhouse
-    env_file:
-      - ./extra/example-learnhouse-conf.env
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
     environment:
-      - APP_BASE_URL=${SERVICE_FQDN_APP} # Automatically generated FQDN
-      - APP_SECRET_KEY=${SERVICE_REALBASE64_64_APP} # Generated 64-bit Base64-encoded secret
-      - DB_PASSWORD=${SERVICE_PASSWORD_DB} # Auto-generated password for DB connection
-      - REDIS_PASSWORD=${SERVICE_PASSWORD_REDIS} # Auto-generated password for Redis connection
+      # Frontend
+      - NEXT_PUBLIC_LEARNHOUSE_MULTI_ORG=false
+      - NEXT_PUBLIC_LEARNHOUSE_DEFAULT_ORG=default
+      - NEXT_PUBLIC_LEARNHOUSE_TOP_DOMAIN=${SERVICE_FQDN_APP} 
+      - NEXTAUTH_SECRET=${SERVICE_REALBASE64_64_APP} 
+      - NEXTAUTH_URL=https://${SERVICE_FQDN_APP}
+
+      # Backend
+      - LEARNHOUSE_COOKIE_DOMAIN=${SERVICE_FQDN_APP} # Dynamic FQDN for cookies
+      - LEARNHOUSE_SQL_CONNECTION_STRING=postgresql://learnhouse:${SERVICE_PASSWORD_DB}@db:5432/learnhouse 
+      - LEARNHOUSE_REDIS_CONNECTION_STRING=redis://:${SERVICE_PASSWORD_REDIS}@redis:6379/learnhouse 
+      - LEARNHOUSE_CHROMADB_HOST=${SERVICE_FQDN_CHROMADB} 
 
   collaboration:
     build: apps/collaboration/.
     ports:
       - "1998:1998"
     environment:
-      - COLLABORATION_FQDN=${SERVICE_FQDN_COLLABORATION} # FQDN for collaboration service
-      - COLLABORATION_SECRET_KEY=${SERVICE_REALBASE64_64_COLLABORATION} # Unique secret
+      - COLLABORATION_FQDN=${SERVICE_FQDN_COLLABORATION} 
+      - COLLABORATION_SECRET_KEY=${SERVICE_REALBASE64_64_COLLABORATION} 
 
   db:
     image: postgres:16-alpine
@@ -35,10 +41,10 @@ services:
       - "5432:5432"
     environment:
       - POSTGRES_USER=learnhouse
-      - POSTGRES_PASSWORD=${SERVICE_PASSWORD_DB} # Uses Coolify-generated password
+      - POSTGRES_PASSWORD=${SERVICE_PASSWORD_DB} 
       - POSTGRES_DB=learnhouse
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U learnhouse"]
+      test: [ "CMD-SHELL", "pg_isready -U learnhouse" ]
       interval: 5s
       timeout: 4s
       retries: 5
@@ -51,9 +57,9 @@ services:
     ports:
       - "6379:6379"
     environment:
-      - REDIS_PASSWORD=${SERVICE_PASSWORD_REDIS} # Uses Coolify-generated Redis password
+      - REDIS_PASSWORD=${SERVICE_PASSWORD_REDIS} 
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 5s
       timeout: 4s
       retries: 5
