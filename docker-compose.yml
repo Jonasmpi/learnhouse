@@ -24,7 +24,7 @@ services:
       - NEXTAUTH_URL=https://${SERVICE_FQDN_APP}
       - LEARNHOUSE_DOMAIN=${SERVICE_FQDN_APP}
       - LEARNHOUSE_SSL=${LEARNHOUSE_SSL:-true}
-      - LEARNHOUSE_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001,http://${SERVICE_FQDN_APP}
+      - LEARNHOUSE_ALLOWED_ORIGINS=http://${SERVICE_FQDN_APP}
       - LEARNHOUSE_SELF_HOSTED=true
       # Backend
       - LEARNHOUSE_COOKIE_DOMAIN=.${SERVICE_FQDN_APP} # Dynamic FQDN for cookies
