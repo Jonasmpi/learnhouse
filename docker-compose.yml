@@ -23,7 +23,7 @@ services:
       - NEXTAUTH_SECRET=${SERVICE_REALBASE64_64_APP} 
       - NEXTAUTH_URL=https://${SERVICE_FQDN_APP}
       - LEARNHOUSE_DOMAIN=${SERVICE_FQDN_APP}
-      - LEARNHOUSE_SSL=${LEARNHOUSE_SSL:true}
+      - LEARNHOUSE_SSL=${LEARNHOUSE_SSL:-true}
       - LEARNHOUSE_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
       - LEARNHOUSE_SELF_HOSTED=true
       # Backend
