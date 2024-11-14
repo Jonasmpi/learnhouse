@@ -24,7 +24,7 @@ services:
       - NEXTAUTH_URL=https://${SERVICE_FQDN_APP}
       - LEARNHOUSE_DOMAIN=${SERVICE_FQDN_APP}
       - LEARNHOUSE_SSL=${LEARNHOUSE_SSL:-true}
-      - LEARNHOUSE_ALLOWED_ORIGINS=https://${SERVICE_FQDN_APP},http://localhost:3000,http://localhost:3001
+      - LEARNHOUSE_ALLOWED_ORIGINS=https://${SERVICE_FQDN_APP},http://localhost:3000,http://localhost:3001,https://os8o0w8wws8ow44sgo4ck00o.naixt-digital.de
       - LEARNHOUSE_SELF_HOSTED=true
       - LEARNHOUSE_DEVELOPMENT_MODE=False
       # Backend
