@@ -26,6 +26,7 @@ services:
       - LEARNHOUSE_SSL=${LEARNHOUSE_SSL:-true}
       - LEARNHOUSE_ALLOWED_ORIGINS=http://${SERVICE_FQDN_APP}
       - LEARNHOUSE_SELF_HOSTED=true
+      - LEARNHOUSE_DEVELOPMENT_MODE=false
       # Backend
       - LEARNHOUSE_COOKIE_DOMAIN=.${SERVICE_FQDN_APP} # Dynamic FQDN for cookies
       - LEARNHOUSE_SQL_CONNECTION_STRING=postgresql://learnhouse:${SERVICE_PASSWORD_DB}@db:5432/learnhouse 
